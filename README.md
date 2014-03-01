@@ -1,4 +1,4 @@
-Robotics-Tutorials
+Sensor Tutorials
 ==================
 
-Repository of Tutorial Code for FIRST Motors, Sensors, and User Interface
+Repository of Tutorial Code for NXT and HT Sensors
