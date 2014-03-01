@@ -1,0 +1,31 @@
+//This code will introduce you to the button interface of the NXT brick.
+//Because it is very simple, it will also give you some basic sample code for a user interface.
+//To use this code, you simply need to download it to your NXT brick.
+
+//The NXT brick only has 4 buttons: Buttons 0-3.
+//Button 0 is the grey rectangle button.
+//Button 1 is the right arrow button.
+//Button 2 is the left arrow button.
+//Button 3 is the orange square button.
+
+//To read the current button being pressed, we use the function nNxtButtonPressed.
+//It also returns -1 if no button is pressed.
+
+//The following is sample code for a basic user interface using the nNxtButtonPressed function.
+//It will display the current number of the button being pressed, provided that a button is currently pressed.
+
+task main()
+{
+	nxtDisplayCenteredTextLine(1, "Press a Button.");
+
+	while(true) { //Infinite Loop
+		if(nNxtButtonPressed != -1) { //If a button is being pressed
+			nxtDisplayCenteredTextLine(4, "%d", nNxtButtonPressed); //Displays the current button being pressed
+		}
+		else { //If no button is being pressed
+			nxtDisplayClearTextLine(4); //Clear the line so that no button is displayed.
+		}
+	}
+}
+
+//This is all you need to know in order to make some clever initialization code for your autonomous period.
