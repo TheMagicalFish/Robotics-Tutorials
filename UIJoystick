@@ -1,0 +1,48 @@
+//This code will introduce you to the basics of joystick control for TETRIX/LEGO Mindstorms.
+//In conjunction with the motor tutorial, you should be able to craft an effective TeleOp program with this information.
+//To see it in action, connect two controllers to your computer, and connect the NXT brick to your computer.
+
+//Before we see the code, we must understand what will be displayed.
+//The joystick returns a list of 15 numbers, each relating to a control's current state.
+
+//Buttons 1-4 are the circular buttons on the right side of the controller, and return 0 for unpressed and 1 for pressed.
+//Buttons 5-6 are the left and right buttons, respectively, above the triggers. They also return 0 and 1.
+//Buttons 7-8 are the left and right triggers, respectivey. They return values ranging from 0 (unpressed) to 100 (fully pressed).
+//Button 9 is a rectangular button on the left of the middle panel on the controller. It returns 0 and 1.
+//Button 10 is a rectangular button on the right of the middle panel on the controller. It also returns 0 and 1.
+
+//In addition to buttons, the joystick also reads the positions of the thumbsticks and "TopHat".
+
+//joy1_y1 and joy1_x1 correspond to the positions of the left thumbstick. Both values range from -100 to 100.
+//joy1_y2 and joy1_y2 do the same thing, but for the right thumbstick.
+
+//The "TopHat" is on the opposite side of buttons 1-4, and returns values from -1 to 7. -1 is unpressed, and 0-7 begin at the top and continue.
+
+//To better understand how the controller returns its readings, run this code.
+//This program will display information relating to each button pressed on the joystick.
+
+//To begin, we must import the joystick driver.
+#include "JoystickDriver.c";
+
+task main()
+{
+	while(true) { //Infinite loop
+
+		getJoystickSettings(joystick); //This updates the computer's storage for the position of your joystick controls.
+
+		//This block of code is used to display the current controls being pressed.
+		//It is worth remembering how to display integers on the NXT screen, as it can help with sensor feedback.
+		nxtDisplayTextLine(0, "B1:%3d B2:%3d", joy1Btn(1), joy1Btn(2)); //This line reads buttons 1-2.
+		nxtDisplayTextLine(1, "B3:%3d B4:%3d", joy1Btn(3), joy1Btn(4)); //This line reads buttons 3-4.
+		nxtDisplayTextLine(2, "B5:%3d B6:%3d", joy1Btn(5), joy1Btn(6)); //This line reads buttons 5-6.
+		nxtDisplayTextLine(3, "B7:%3d B8:%3d", joy1Btn(7), joy1Btn(8)); //This line reads buttons 7-8.
+		nxtDisplayTextLine(4, "B9:%3d B0:%3d", joy1Btn(9), joy1Btn(10));//This line reads buttons 9-10.
+		nxtDisplayTextLine(5, "Y1:%3d Y2:%3d", joy1_y1, joy1_y2); //This line reads the y-values for the left and right thumbsticks.
+		nxtDisplayTextLine(6, "X1:%3d X2:%3d", joy1_x1, joy1_x2); //This line reads the x-values for the left and right thumbsticks.
+		nxtDisplayTextLine(7, "TopHat: %3d", joy1_TopHat);        //This line reads the value returned by the TopHat.
+
+		//Note that the same commands work for the second controller. Simply replace "joy1" with "joy2".
+	}
+}
+
+//Knowing how to read joystick values will allow you to make effective TeleOp programs by linking these values to things like motor speed.
