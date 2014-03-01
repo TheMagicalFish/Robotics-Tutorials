@@ -1,0 +1,65 @@
+//This code will introduce you to the one of the three motors used in FTC competition: The NXT motor.
+//In addition, it will show how to use encoders for this type of motor.
+
+//This code requires basic knowledge of ROBOTC syntax, so if you have trouble, ask an older programmer.
+//If you want to see it in action, attach an NXT motor to the A port in your NXT brick.
+
+//This code is not intended for direct copy-paste, but feel free to use the elements you find from it to make your own programs.
+
+task main()
+{
+	//NXT motors are attached through the A, B, and C ports on the NXT brick, and correspond to those ports in the program.
+	//Hence, NXT motors are motorA, motorB, and motorC.
+	//We'll be using motorA for this example.
+
+	//To make it run, we set its value to any number between 0 and 100.
+	//At 100, the NXT motor runs at 11 RPM, and can withstand 24 oz-in of torque.
+
+	motor[motorA] = 50;
+	//At this point, it will run forever. To add time limits, use the following code:
+
+	wait1Msec(5000);//This tells the computer to wait for 5000 milliseconds (5 seconds) before continuing.
+
+	motor[motorA] = 0;//This sets motorA's speed to 0, stopping it.
+
+	//Next, lets look at how to use encoders for the NXT motor.
+	//Encoders allow the computer to know how many degrees a motor has turned.
+	//One full rotation is 360 degrees.
+	//There is no negative rotation, the program simply detects the amount of degrees turned.
+
+	//Always begin an encoder program by resetting the encoder.
+	nMotorEncoder[motorA] = 0;
+
+	//When the motors spin, the encoder will count up.
+	//The following code will stop the motor when it completes 360 degrees of rotation.
+
+	while(nMotorEncoder[motorA] < 360) {
+		motor[motorA] = 50;
+	}
+	motor[motorA] = 0;
+
+	//However, a more accurate method of targetting encoders is the nMotorEncoderTarget function.
+
+	nMotorEncoder[motorA] = 0;
+
+	nMotorEncoderTarget[motorA] = 1440; //This tells the computer to rotate the motors until they reach 1440 degrees of rotation.
+	//This program is a bit more accurate, as it will have the robot slow down as it nears its target.
+
+	//It is used in conjunction with the nMotorRunState variable.
+	//This variable has three values: runStateRunning, runStateHoldPosition, and runStateIdle
+	//runStateRunning occurs when the robot is approaching its target at normal speed.
+	//runStateHoldPosition occurs when the robot is slowing down to hit the target accurately.
+	//runStateIdle occurs when the robot has stopped.
+
+	motor[motorA] = 50;
+
+	//The following code is used to protect the motor by stopping it completely once its target is reached.
+
+	while(nMotorRunState[motorA] != runStateIdle) {
+		//This loop keeps the robot running until the robot has reached its target.
+	}
+	motor[motorA] = 0; //Turning off the motor preserves it, as it won't be running while idle.
+
+	//That's all you should need for NXT motors. For more information, go to
+	//http://www.education.rec.ri.cmu.edu/previews/robot_c_products/teaching_rc_tetrix_preview/sensing/forwardfordistance/documents/encoders_helper.pdf
+}
